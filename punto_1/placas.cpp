@@ -61,15 +61,17 @@ int main () {
       //Progreso del tiempo
       while( t<N ){
 
-          for(int i=0;i<D;i++){
-               for(int j=0;j<D;j++){
-                   cout << old[i][j] << " ";
+          for(int i=1;i<D-1;i++){
+               for(int j=1;j<D-1;j++){
+                   double nn = 0.25*(old[i][j+1] + neu[i][j-1] + old[i+1][j] + neu[i-1][j]);
+                   double r = nn - old[i][j];
+                   neu[i][j] = old[i][j] + 1.3*r;
                }
-               cout << endl;
           }
 
           t= t + 1;
       }
+
 
 
       //cout << el << endl;
@@ -77,7 +79,7 @@ int main () {
      //print
      for(int i=0;i<D;i++){
          for(int j=0;j<D;j++){
-             cout << old[i][j] << " ";
+             cout << neu[i][j] << " ";
          }
          cout << endl;
      }

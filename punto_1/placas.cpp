@@ -51,30 +51,56 @@ int main () {
       //Y fijas, recorrido en x
       for(int j=sl ; j<el ; j++){
           old[plyu][j] = Vo/2.0;
+          neu[plyu][j] = Vo/2.0;
           old[plyd][j] = -1*Vo/2.0;
+          neu[plyd][j] = -1*Vo/2.0;
       }
 
       //Bordes Region V = 0
       //Loops 1 - D-1
 
       int t = 0;
-      //Progreso del tiempo
-      while( t<N ){
+
+      //Progreso de iteraciones
+      while( t<5000 ){
 
           for(int i=1;i<D-1;i++){
                for(int j=1;j<D-1;j++){
-                   double nn = 0.25*(old[i][j+1] + neu[i][j-1] + old[i+1][j] + neu[i-1][j]);
-                   double r = nn - old[i][j];
-                   neu[i][j] = old[i][j] + 1.3*r;
+
+                   //Puntos de placas siempre se mantienen intactas
+                   if(i ==  plyu){
+                       if(j >=  sl and j <= el){
+                           neu[i][j] = Vo/2.0;
+                       }
+                   }
+                   else if(i == plyd){
+                     if(j >=  sl and j <= el){
+                         neu[i][j] = -1*Vo/2.0;
+                     }
+                   }
+                   else{
+                     neu[i][j] = 0.25*(old[i][j+1] + neu[i][j-1] + old[i+1][j] + neu[i-1][j]);
+
+                     //Con Successive OverRelaxation method
+                     //nn = 0.25*(old[i][j+1] + neu[i][j-1] + old[i+1][j] + neu[i-1][j]);
+                     //double r = nn - old[i][j];
+                     //1.3 = w, entre 1 y 2
+                     //neu[i][j] = old[i][j] + 1.3*r;
+                   }
+               }
+          }
+
+          //Progreso 1 iteracion
+          //Nuevo pasado --> presente just calculado
+          for(int i=0;i<D;i++){
+               for(int j=0;j<D;j++){
+                   old[i][j] = neu[i][j];
+
                }
           }
 
           t= t + 1;
       }
-
-
-
-      //cout << el << endl;
 
      //print
      for(int i=0;i<D;i++){

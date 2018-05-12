@@ -31,3 +31,4 @@ ax2.set_title('Campo Electrico')
 
 #CAMBIAR A PDF ! ! !
 plt.savefig("Placas.png")
+plt.imshow(fig)

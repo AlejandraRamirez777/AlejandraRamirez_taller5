@@ -2,10 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
+#Create Mesh
 w = 512
 Y, X = np.mgrid[:w:512j, :w:512j]
-U = -1 - X*2 + Y
-V = 1 + X - Y**2
+#Magnitude
+U = 2*X
+#Direction
+V = Y*Y
 
 print np.shape(V)
 

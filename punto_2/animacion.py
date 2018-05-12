@@ -13,8 +13,8 @@ fig, ax = plt.subplots()
 ax.set_xlim(( 0, 100))
 ax.set_ylim((-1, 1))
 plt.title("Progreso de la cuerda en el tiempo")
-plt.xlabel("Posicion")
-plt.ylabel("Funcion de onda")
+plt.xlabel("Posicion (x)")
+plt.ylabel("Funcion de onda ( u(x,t) )")
 
 #Line graficadora
 line, = ax.plot([], [], lw=2)

@@ -18,8 +18,8 @@ int main () {
     const float n_time = 200;
 
     //Pasos
-    float dx = 1;
-    float dt = 0.01;
+    float dx = 0.01;
+    float dt = 0.005;
     float CD = dx/dt;
     float r = c/CD;
     //cout << r << endl;
@@ -88,7 +88,7 @@ int main () {
         //Avance en el tiempo
         //Nuevo pasado --> prev presente
         //Nuevo presente --> prev futuro
-        for(int i=1;i<M-1;i++){
+        for(int i=0;i<M;i++){
           past[i] = pres[i];
           pres[i] = fut[i];
         }

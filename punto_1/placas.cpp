@@ -69,18 +69,14 @@ int main () {
                for(int j=1;j<D-1;j++){
 
                    //Puntos de placas siempre se mantienen intactas
-                   if(i ==  plyu){
-                       if(j >=  sl and j <= el){
-                           neu[i][j] = Vo/2.0;
-                       }
+                   if(i ==  plyu+1 and (j >=  sl and j < el)){
+                       neu[i][j] = Vo/2.0;
                    }
-                   else if(i == plyd){
-                     if(j >=  sl and j <= el){
-                         neu[i][j] = -1*Vo/2.0;
-                     }
+                   else if(i == plyd+1 and (j >=  sl and j < el)){
+                        neu[i][j] = -1*Vo/2.0;
                    }
                    else{
-                     neu[i][j] = 0.25*(old[i][j+1] + neu[i][j-1] + old[i+1][j] + neu[i-1][j]);
+                       neu[i][j] = 0.25*(old[i][j+1] + neu[i][j-1] + old[i+1][j] + neu[i-1][j]);
 
                      //Con Successive OverRelaxation method
                      //nn = 0.25*(old[i][j+1] + neu[i][j-1] + old[i+1][j] + neu[i-1][j]);
@@ -96,7 +92,6 @@ int main () {
           for(int i=0;i<D;i++){
                for(int j=0;j<D;j++){
                    old[i][j] = neu[i][j];
-
                }
           }
 
@@ -125,7 +120,6 @@ int main () {
       //Calculo por Central Difference
       for(int i=1;i<D-1;i++){
            for(int j=1;j<D-1;j++){
-               double h = 1.0;
                yy[i][j] = -1*((neu[i+1][j] - neu[i-1][j])/(2.0*h));
                xx[i][j] = -1*((neu[i][j+1] - neu[i][j-1])/(2.0*h));
            }

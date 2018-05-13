@@ -2,61 +2,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
-
+#Get data
 data = np.genfromtxt("datos_placas.txt")
 
+#Corte de datos
 w =  np.shape(data)[0]/512
 
+#Reajust para graficar
 go = data.reshape((w,w,3))
 
+#Potencial
 plt.imshow(go[:,:,2],cmap = "bwr")
 plt.colorbar()
 
 #Create Mesh
 Y, X = np.mgrid[:w:512j, :w:512j]
 
+#Vectores de campo electrico
 plt.streamplot(X,Y,go[:,:,0],go[:,:,1], color = "k")
 
-'''
-data = np.genfromtxt("datos_placas.txt")
-
-print np.shape(data)
-
-#Potencial
-plt.imshow(data,cmap = "bwr")
-plt.colorbar()
 
 plt.title("Potencial y Campo Electrico")
 
-
-
-#Create Mesh
-w = 512
-Y, X = np.mgrid[:w:512j, :w:512j]
-#Magnitude
-U = 2*X
-#Direction
-V = Y*Y
-
-print np.shape(V)
-
-fig = plt.figure(figsize=(7, 9))
-gs = gridspec.GridSpec(nrows=2, ncols=1, height_ratios=[1, 1])
-
-# Varying color along a streamline
-ax1 = fig.add_subplot(gs[0, 0])
-strm = ax1.streamplot(X, Y, U, V, color=U, linewidth=2, cmap='cool')
-fig.colorbar(strm.lines)
-ax1.set_title('Potencial Electrico')
-
-# Varying color along a streamline
-ax2 = fig.add_subplot(gs[1, 0])
-strm = ax2.streamplot(X, Y, U, V, color=U, linewidth=2, cmap='summer')
-fig.colorbar(strm.lines)
-ax2.set_title('Campo Electrico')
-
-#plt.tight_layout()
-
 #CAMBIAR A PDF ! ! !
-'''
+
 plt.savefig("Placas.png")

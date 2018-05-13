@@ -2,6 +2,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
+data = np.genfromtxt("datos_placas.txt")
+
+print np.shape(data)
+
+#Potencial
+plt.imshow(data,cmap = "bwr")
+plt.colorbar()
+
+plt.title("Potencial y Campo Electrico")
+
+'''
 #Create Mesh
 w = 512
 Y, X = np.mgrid[:w:512j, :w:512j]
@@ -30,5 +41,5 @@ ax2.set_title('Campo Electrico')
 #plt.tight_layout()
 
 #CAMBIAR A PDF ! ! !
+'''
 plt.savefig("Placas.png")
-plt.imshow(fig)

@@ -61,8 +61,9 @@ int main () {
 
       int t = 0;
 
+      //Potencial
       //Progreso de iteraciones
-      while( t<5000 ){
+      while( t<6000 ){
 
           for(int i=1;i<D-1;i++){
                for(int j=1;j<D-1;j++){

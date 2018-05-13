@@ -34,9 +34,6 @@ int main () {
     double t =0;
     while(t < T){
 
-
-              cout << qq1 << " " << p2 << endl;
-
         double k1qq1 = zqq1(p1);
         double k2qq1 = zqq1(p1 + 0.5*k1qq1*h);
         double k3qq1 = zqq1(p1 + 0.5*k2qq1*h);
@@ -63,6 +60,9 @@ int main () {
         double p1f = p1 + (1.0/6.0)*h*(k1p1 + 2.0*k2p1 + 2.0*k2p1 + k1p1);
         double p2f = p2 + (1.0/6.0)*h*(k1p2 + 2.0*k2p2 + 2.0*k2p2 + k1p2);
 
+        if((qq1> 0 and qq1f < 0) or (qq1< 0 and qq1f > 0)){
+              cout << qq2 << " " << p2 << endl;
+        }
 
         //Sustitucion avance en el tiempo
         qq1 = qq1f;
@@ -70,7 +70,7 @@ int main () {
         p1 = p1f;
         p2 = p2f;
 
-        t = t+0.5;
+        t = t+h;
     }
 
 return 0;

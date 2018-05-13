@@ -61,7 +61,7 @@ int main () {
 
       int t = 0;
 
-      //Potencial
+      //POTENCIAL
       //Progreso de iteraciones
       while( t<6000 ){
 
@@ -103,10 +103,38 @@ int main () {
           t= t + 1;
       }
 
+      //CAMPO ELECTRICO
+      //Se calcula a partir de potencial final
+      //Dos componentes: x y y
+      //x -> - dV(x,y)/dx
+      //y -> - dV(x,y)/dy
+
+      //Inicializar matrices xx and yy
+      //x-component Matrix
+      double **xx = new double*[D];
+      for(int i=0;i<D;i++){
+           xx[i] = new double[D];
+       }
+
+       //y-component Matrix
+       double **yy = new double*[D];
+       for(int i=0;i<D;i++){
+            yy[i] = new double[D];
+        }
+
+      //Calculo por Central Difference
+      for(int i=1;i<D-1;i++){
+           for(int j=1;j<D-1;j++){
+               double h = 1.0;
+               xx[i][j] = (neu[i+1][j] - neu[i-1][j])/(2.0*h);
+               yy[i][j] = (neu[i][j+1] - neu[i][j-1])/(2.0*h);
+           }
+      }
+
      //print
      for(int i=0;i<D;i++){
          for(int j=0;j<D;j++){
-             cout << neu[i][j] << " ";
+             cout << neu[i][j] << " " << xx[i][j] << " " << yy[i][j] << " ";
          }
          cout << endl;
      }

@@ -12,6 +12,8 @@ plt.colorbar()
 
 plt.title("Potencial y Campo Electrico")
 
+print np.shape(data)
+
 '''
 #Create Mesh
 w = 512

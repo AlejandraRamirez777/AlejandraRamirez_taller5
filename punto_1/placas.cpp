@@ -15,12 +15,13 @@ int main () {
     const float d = 1.0;
     const float h = 5.0/512.0;
     const float Vo = 100.0;
-    const float N = 2*((L/h)*(L/h));
+    const float n = (2*((L/h)*(L/h)));
 
     //Dimension matrices DxD
     const int D = (L/h);
 
     const int cen = D/2;
+    float N = n*0.02;
 
     //Inicializar matrices New and Old
     //New Matrix
@@ -63,7 +64,7 @@ int main () {
 
       //POTENCIAL
       //Progreso de iteraciones
-      while( t<6000 ){
+      while( t< N ){
 
           for(int i=1;i<D-1;i++){
                for(int j=1;j<D-1;j++){

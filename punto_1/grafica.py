@@ -24,6 +24,4 @@ plt.streamplot(X,Y,go[:,:,0],go[:,:,1], color = "k")
 
 plt.title("Potencial y Campo Electrico")
 
-#CAMBIAR A PDF ! ! !
-
-plt.savefig("Placas.png")
+plt.savefig("placas.pdf")

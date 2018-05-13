@@ -1,4 +1,4 @@
-placas.png: datos_placas.txt
+placas.pdf: datos_placas.txt
 	python grafica.py
 
 datos_placas.txt: plate

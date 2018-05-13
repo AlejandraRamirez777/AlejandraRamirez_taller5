@@ -34,8 +34,8 @@ int main () {
     double t =0;
     while(t < T){
 
-        
-              cout << qq2 << " " << p2 << endl;
+
+              cout << qq1 << " " << p2 << endl;
 
         double k1qq1 = zqq1(p1);
         double k2qq1 = zqq1(p1 + 0.5*k1qq1*h);
@@ -70,7 +70,7 @@ int main () {
         p1 = p1f;
         p2 = p2f;
 
-        t = t+1;
+        t = t+0.5;
     }
 
 return 0;

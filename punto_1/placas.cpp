@@ -126,15 +126,15 @@ int main () {
       for(int i=1;i<D-1;i++){
            for(int j=1;j<D-1;j++){
                double h = 1.0;
-               xx[i][j] = (neu[i+1][j] - neu[i-1][j])/(2.0*h);
-               yy[i][j] = (neu[i][j+1] - neu[i][j-1])/(2.0*h);
+               yy[i][j] = -1*((neu[i+1][j] - neu[i-1][j])/(2.0*h));
+               xx[i][j] = -1*((neu[i][j+1] - neu[i][j-1])/(2.0*h));
            }
       }
 
      //print
      for(int i=0;i<D;i++){
          for(int j=0;j<D;j++){
-             cout << neu[i][j] << " " << xx[i][j] << " " << yy[i][j] << " ";
+             cout << xx[i][j] << " " << yy[i][j] << " " << neu[i][j] << endl;
          }
          cout << endl;
      }

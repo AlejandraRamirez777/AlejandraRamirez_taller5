@@ -2,6 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
+
+data = np.genfromtxt("datos_placas.txt")
+
+w =  np.shape(data)[0]/512
+
+go = data.reshape((w,w,3))
+
+plt.imshow(go[:,:,2],cmap = "bwr")
+plt.colorbar()
+
+#Create Mesh
+Y, X = np.mgrid[:w:512j, :w:512j]
+
+plt.streamplot(X,Y,go[:,:,0],go[:,:,1], color = "k")
+
+'''
 data = np.genfromtxt("datos_placas.txt")
 
 print np.shape(data)
@@ -12,9 +28,8 @@ plt.colorbar()
 
 plt.title("Potencial y Campo Electrico")
 
-print np.shape(data)
 
-'''
+
 #Create Mesh
 w = 512
 Y, X = np.mgrid[:w:512j, :w:512j]

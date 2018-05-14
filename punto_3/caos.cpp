@@ -8,6 +8,9 @@
 
 using namespace std;
 
+//Si se utilizan valores entre 0.4 hasta 15
+// dan graficas mucho mas interesantes
+// puesto que se ve realmente el comportamiento periodico de qq1
 const double e = 0.001;
 
 double zqq1(double p1);
@@ -19,7 +22,7 @@ int main () {
 
     //dt es igual a h
     double h = 0.006;
-    double T = 3000;
+    double Ttot = 3000;
     double a = 1.0/(2.0*sqrt(2.0));
 
     //Condicion inicial
@@ -29,42 +32,49 @@ int main () {
     double p2 = 0.0;
 
     //Rk4
-    //Yi+1 = Yi + (1/6)*h*(k1+2k2+2k3+k4)
+    //Yi+1 = Yi + (1/6)*(k1+2k2+2k3+k4)
     //Para cada expresion hay k1,2,3,4
 
-    double t =0;
-    while(t < T){
+    //Avance en el tiempo
+    double t = 0;
+    while(t < Ttot){
 
+        //k1 = h*f(y)
+        double k1qq1 = h*zqq1(p1);
+        double k1qq2 = h*zqq2(p2);
+        double k1p1 = h*zp1(qq1,e);
+        double k1p2 = h*zp2(qq1, qq2, e);
 
-     double k1qq1 = h*zqq1(p1);
-     double k1qq2 = h*zqq2(p2);
-     double k1p1 = h*zp1(qq1, e);
-    double k1p2 = h*zp2(qq1, qq2, e);
+        //k2 = h*f(y+ 0.5*k1)
+        double k2qq1 = h*zqq1(p1 + 0.5*k1p1);
+        double k2qq2 = h*zqq2(p2 + 0.5*k1p2);
+        double k2p1 = h*zp1(qq1 + 0.5*k1qq1, e);
+        double k2p2 = h*zp2(qq1 + 0.5*k1qq1, qq2 + 0.5*k1qq2, e);
 
-     double k2qq1 = h*zqq1(p1 + 0.5*k1p1);
-     double k2qq2 = h*zqq2(p2 + 0.5*k1p2);
-     double k2p1 = h*zp1(qq1 + 0.5*k1qq1, e);
-     double k2p2 = h*zp2(qq1 + 0.5*k1qq1, qq2 + 0.5*k1qq2, e);
+        //k3 = h*f(y+ 0.5*k2)
+        double k3qq1 = h*zqq1(p1 + 0.5*k2p1);
+        double k3qq2 = h*zqq2(p2 + 0.5*k2p2);
+        double k3p1 = h*zp1(qq1 + 0.5*k2qq1, e);
+        double k3p2 = h*zp2(qq1 + 0.5*k2qq1, qq2 + 0.5*k2qq2, e);
 
-     double k3qq1 = h*zqq1(p1 + 0.5*k2p1);
-     double k3qq2 = h*zqq2(p2 + 0.5*k2p2);
-     double k3p1 = h*zp1(qq1 + 0.5*k2qq1, e);
-     double k3p2 = h*zp2(qq1 + 0.5*k2qq1, qq2 + 0.5*k2qq2, e);
+        //k4 = h*f(y+ k3)
+        double k4qq1 = h*zqq1(p1 + k3p1);
+        double k4qq2 = h*zqq2(p2 + k3p2);
+        double k4p1 = h*zp1(qq1 + k3qq1, e);
+        double k4p2 = h*zp2(qq1 + k3qq1, qq2 + k3qq2, e);
 
-     double k4qq1 = h*zqq1(p1 + 0.5*k3p1);
-     double k4qq2 = h*zqq2(p2 + 0.5*k3p2);
-     double k4p1 = h*zp1(qq1 + 0.5*k3qq1, e);
-     double k4p2 = h*zp2(qq1 + 0.5*k3qq1, qq2 + 0.5*k3qq2, e);
+        //Soluciones deben ser p1,p2,qq1 y qq2
+        //Yi+1 = Yi + (1/6)*(k1+2k2+2k3+k4)
+        double qq1f = qq1 + (1.0/6.0)*(k1qq1 + 2.0*k2qq1 + 2.0*k3qq1 + k4qq1);
+        double qq2f = qq2 + (1.0/6.0)*(k1qq2 + 2.0*k2qq2 + 2.0*k3qq2 + k4qq2);
+        double p1f = p1 + (1.0/6.0)*(k1p1 + 2.0*k2p1 + 2.0*k3p1 + k4p1);
+        double p2f = p2 + (1.0/6.0)*(k1p2 + 2.0*k2p2 + 2.0*k3p2 + k4p2);
 
-     //Soluciones deben ser p1,p2,qq1 y qq2
-     double qq1f = qq1 + (1.0/6.0)*(k1qq1 + 2.0*k2qq1 + 2.0*k3qq1 + k4qq1);
-     double qq2f = qq2 + (1.0/6.0)*(k1qq2 + 2.0*k2qq2 + 2.0*k3qq2 + k4qq2);
-     double p1f = p1 + (1.0/6.0)*(k1p1 + 2.0*k2p1 + 2.0*k3p1 + k4p1);
-     double p2f = p2 + (1.0/6.0)*(k1p2 + 2.0*k2p2 + 2.0*k3p2 + k4p2);
-
-     if((qq1> 0 and qq1f < 0) or (qq1< 0 and qq1f > 0)){
-           cout << qq2 << " " << p2 << endl;
-     }
+        //Imprimir cuando qq1 cambia de signo
+        if((qq1< 0 and qq1f > 0) or (qq1> 0 and qq1f < 0)){
+            //Se imprime f, ahi se nota el cambio
+            cout << qq2f << " " << p2f << endl;
+         }
 
         //Sustitucion avance en el tiempo
         qq1 = qq1f;
@@ -78,10 +88,8 @@ int main () {
 return 0;
 }
 
-//Sistemas de ecuaciones
 
-//Parametros double oo no tienen utilidad
-// se emplean solo para generalizacion
+//Sistemas de ecuaciones
 
 //1st time derivative q1
 double zqq1(double p1){
